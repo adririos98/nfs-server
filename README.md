@@ -1,10 +1,6 @@
 # nfs-server
 NFS Server description.
 
-# erichough/nfs-server
-
-A lightweight, robust, flexible, and containerized NFS server.
-
 ## Why?
 
 This is the only containerized NFS server that offers **all** of the following features:
@@ -169,3 +165,4 @@ Please [open an issue](https://github.com/ehough/docker-nfs-server/issues) if yo
 - figure out why `rpc.nfsd` [takes 5 minutes to startup/timeout](https://www.spinics.net/lists/linux-nfs/msg59728.html) unless `rpcbind` is running
 - add more examples
 
+More information: https://github.com/ehough/docker-nfs-server/blob/develop/README.md

@@ -1,5 +1,5 @@
 # nfs-server
-Servidor NFS.
+NFS Server description.
 
 # erichough/nfs-server
 
@@ -62,7 +62,7 @@ This is the only containerized NFS server that offers **all** of the following f
 Starting the `erichough/nfs-server` image will launch an NFS server. You'll need to supply some information upon container startup, which we'll cover below, but briefly speaking your `docker run` command might look something like this:
 
     docker run                                            \
-      -v /nfsshare/datos/shared/files:/some/container/path  \
+      -v /nfsshare/datos:/some/container/path  \
       -v /nfsshare/exports.txt:/etc/exports:ro        \
       --cap-add SYS_ADMIN                                 \
       -p 2049:2049                                        \
@@ -74,7 +74,7 @@ Let's break that command down into its individual pieces to see what's required 
 
    As noted in the [requirements](#requirements), the container will need local access to the files you'd like to share over NFS. Some ideas for supplying these files:
 
-      * [bind mounts](https://docs.docker.com/storage/bind-mounts/) (`-v /host/path/to/shared/files:/some/container/path`)
+      * [bind mounts](https://docs.docker.com/storage/bind-mounts/) (`-v /nfsshare/datos/files:/some/container/path`)
       * [volumes](https://docs.docker.com/storage/volumes/) (`-v some_volume:/some/container/path`)
       * files [baked into](https://docs.docker.com/engine/reference/builder/#copy) custom image (e.g. in a `Dockerfile`: `COPY /host/files /some/container/path`)
 
@@ -87,7 +87,7 @@ Let's break that command down into its individual pieces to see what's required 
    1. bind mount `/etc/exports` into the container
 
           docker run                                      \
-            -v /host/path/to/exports.txt:/etc/exports:ro  \
+            -v /nfsshare/exports.txt:/etc/exports:ro  \
             ...                                           \
             erichough/nfs-server
 
@@ -107,7 +107,7 @@ Let's break that command down into its individual pieces to see what's required 
 
        ```Dockerfile
        FROM erichough/nfs-server
-       ADD /host/path/to/exports.txt /etc/exports
+       ADD /nfsshare/exports.txt /etc/exports
        ```
 
 1. **Use `--cap-add SYS_ADMIN` or `--privileged`**

@@ -62,8 +62,8 @@ This is the only containerized NFS server that offers **all** of the following f
 Starting the `erichough/nfs-server` image will launch an NFS server. You'll need to supply some information upon container startup, which we'll cover below, but briefly speaking your `docker run` command might look something like this:
 
     docker run                                            \
-      -v /host/path/to/shared/files:/some/container/path  \
-      -v /host/path/to/exports.txt:/etc/exports:ro        \
+      -v /nfsshare/datos/shared/files:/some/container/path  \
+      -v /nfsshare/exports.txt:/etc/exports:ro        \
       --cap-add SYS_ADMIN                                 \
       -p 2049:2049                                        \
       erichough/nfs-server

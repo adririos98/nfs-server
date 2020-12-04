@@ -52,14 +52,28 @@ This is the only containerized NFS server that offers **all** of the following f
 1. The container will need local access to the files you'd like to serve via NFS. You can use Docker volumes, bind mounts, files baked into a custom image, or virtually any other means of supplying files to a Docker container.
 
 ## Usage
+Host Primary:
+Primary host where docker will run
+  #sudo modprobe nfs
+  #sudo modprobe nfsd
 
 ### Starting the server
 
 Starting the `erichough/nfs-server` image will launch an NFS server. You'll need to supply some information upon container startup, which we'll cover below, but briefly speaking your `docker run` command might look something like this:
 
     docker run                                            \
-      -v /nfsshare/datos:/some/container/path  \
+      -v /nfsshare/datos:/media/nfsshare  \
       -v /nfsshare/exports.txt:/etc/exports:ro        \
+      --cap-add SYS_ADMIN                                 \
+      -p 2049:2049                                        \
+      erichough/nfs-server
+      
+      or
+      #LAB#
+      
+      docker run                                                           \
+      -e NFS_EXPORT_0='/nfsshare/datos 192.168.56.106(rw,no_subtree_check)'  \
+      -v /nfsshare/datos:/nfsshare/datos        \
       --cap-add SYS_ADMIN                                 \
       -p 2049:2049                                        \
       erichough/nfs-server
